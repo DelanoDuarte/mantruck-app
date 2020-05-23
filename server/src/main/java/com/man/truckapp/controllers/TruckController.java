@@ -1,5 +1,6 @@
 package com.man.truckapp.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -60,5 +61,21 @@ public class TruckController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Truck>> findAllTrucks() {
+        try {
+            Optional<List<Truck>> allTrucks = Optional.of(truckRepository.findAll());
+            if (allTrucks.isPresent()) {
+                if (allTrucks.get().size() > 0)
+                    return ResponseEntity.ok(allTrucks.get());
+                else
+                    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
+        } catch (Exception e) {
+            logger.error("Error on find all trucks method on controller: " + e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 }

@@ -93,6 +93,7 @@
 					<execution>
 						<goals>
 							<goal>prepare-agent</goal>
+              				<goal>report</goal>
 						</goals>
 					</execution>
 					<execution>
@@ -101,6 +102,17 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+					</execution>
+					<execution>
+						<id>it-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report-aggregate</goal>
+						</goals>
+						<configuration>
+							<dataFileIncludes>**/jacoco-it.exec</dataFileIncludes>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

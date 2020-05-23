@@ -2,12 +2,16 @@ package com.man.truckapp.controllers;
 
 import static org.mockito.Mockito.doReturn;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.man.truckapp.domain.FuelType;
 import com.man.truckapp.domain.Truck;
 import com.man.truckapp.repository.TruckRepository;
 import com.man.truckapp.service.TruckService;
 
+import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -63,6 +67,20 @@ public class TruckControllerTest {
     }
 
     @Test
+    public void should_trySaveANewTruckAndReturnErrorMessageWithRequiredFieldsThroughController() throws Exception {
+
+        Truck truck = Truck.builder().withFuelType(FuelType.BIO_DIESEL).build();
+
+        String truckJson = new ObjectMapper().writeValueAsString(truck);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/truck").contentType(MediaType.APPLICATION_JSON).content(truckJson)
+                .characterEncoding("UTF-8").accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.model", Is.is("The model field is required.")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.enginePower", Is.is("The Engine Power field is required.")));
+    }
+
+    @Test
     public void should_findATruckByIdThroughController() throws Exception {
 
         Truck truck = Truck.builder().withModel("TGX 1080").withEnginePower(450).withFuelType(FuelType.BIO_DIESEL)
@@ -76,6 +94,28 @@ public class TruckControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.model").exists());
+
+    }
+
+    @Test
+    public void should_returnAllTrucksThroughController() throws Exception {
+
+        Truck truck1 = Truck.builder().withModel("TGX 1080").withEnginePower(480).withFuelType(FuelType.DIESEL).build();
+        Truck truck2 = Truck.builder().withModel("TGS 1040").withEnginePower(400).withFuelType(FuelType.BIO_DIESEL)
+                .build();
+
+        truck1.setId(1L);
+        truck2.setId(2L);
+
+        List<Truck> trucks = Arrays.asList(truck1, truck2);
+
+        doReturn(ResponseEntity.status(HttpStatus.OK).body(trucks)).when(truckController).findAllTrucks();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/truck").characterEncoding("UTF-8")
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].model").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].model").exists());
 
     }
 }

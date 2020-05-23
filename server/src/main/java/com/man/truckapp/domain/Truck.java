@@ -35,15 +35,16 @@ public class Truck implements Serializable {
     private Long id;
 
     @Column
-    @NotNull
+    @NotNull(message = "The model field is required.")
     private String model;
 
     @Column
-    @NotNull
+    @NotNull(message = "The Engine Power field is required.")
     private Integer enginePower;
 
     @Enumerated(EnumType.STRING)
     @Column
+    @NotNull(message = "The Fuel field is required.")
     private FuelType fuel;
 
     @OneToMany(cascade = { CascadeType.MERGE, CascadeType.REMOVE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
