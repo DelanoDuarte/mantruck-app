@@ -37,7 +37,7 @@ public class TruckServiceTest {
 
     @Test
     public void should_saveANewTruck() {
-        Truck truck = Truck.builder().withName("Model Class A").withEnginePower(340).withFuelType(FuelType.DIESEL)
+        Truck truck = Truck.builder().withModel("Model Class A").withEnginePower(340).withFuelType(FuelType.DIESEL)
                 .build();
 
         Truck truckToReturn = truck;

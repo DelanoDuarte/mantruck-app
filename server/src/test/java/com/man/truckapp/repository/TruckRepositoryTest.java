@@ -55,12 +55,12 @@ public class TruckRepositoryTest {
     }
 
     private Truck truckBuilder() {
-        Truck truck = Truck.builder().withName("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL).build();
+        Truck truck = Truck.builder().withModel("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL).build();
         return truck;
     }
 
     private Truck truckBuilderWithSegments() {
-        Truck truck = Truck.builder().withName("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL)
+        Truck truck = Truck.builder().withModel("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL)
                 .addSegment(new Segment("Wastedisposal"))
                 .build();
         return truck;
