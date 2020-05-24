@@ -48,7 +48,7 @@ public class Truck implements Serializable {
     private FuelType fuel;
 
     @OneToMany(cascade = { CascadeType.MERGE, CascadeType.REMOVE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
-    private List<Segment> segements = new ArrayList<>();
+    private List<Segment> segments;
 
     public Truck(String model, Integer enginePower, FuelType fuel) {
         this.model = model;
@@ -60,7 +60,7 @@ public class Truck implements Serializable {
         this.model = model;
         this.enginePower = enginePower;
         this.fuel = fuel;
-        this.segements = segements;
+        this.segments = segements;
     }
 
     public Truck() {
@@ -98,12 +98,19 @@ public class Truck implements Serializable {
         this.fuel = fuel;
     }
 
+    public void addSegment(Segment segment) {
+        if (this.segments == null)
+            this.segments = new ArrayList<>();
+
+        this.segments.add(segment);
+    }
+
     public List<Segment> getSegements() {
-        return segements;
+        return segments;
     }
 
     public void setSegements(List<Segment> segements) {
-        this.segements = segements;
+        this.segments = segements;
     }
 
     public static TruckBuilder builder() {
@@ -132,8 +139,8 @@ public class Truck implements Serializable {
             return this;
         }
 
-        public TruckBuilder addSegment(final Segment segment) {
-            getSegements().add(segment);
+        public TruckBuilder addOneSegment(final Segment segment) {
+            addSegment(segment);
             return this;
         }
 

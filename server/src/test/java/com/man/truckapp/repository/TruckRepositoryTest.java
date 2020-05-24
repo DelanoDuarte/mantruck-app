@@ -61,7 +61,7 @@ public class TruckRepositoryTest {
 
     private Truck truckBuilderWithSegments() {
         Truck truck = Truck.builder().withModel("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL)
-                .addSegment(new Segment("Wastedisposal"))
+                .addOneSegment(new Segment("Wastedisposal"))
                 .build();
         return truck;
     }
