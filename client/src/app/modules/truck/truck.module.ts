@@ -4,13 +4,17 @@ import { CommonModule } from '@angular/common';
 import { TruckRoutingModule } from './truck-routing.module';
 import { TruckListComponent } from './components/truck-list/truck-list.component';
 import { TruckGridComponent } from './components/truck-list/truck-grid/truck-grid.component';
+import { TruckCreateComponent } from './components/truck-create/truck-create.component';
+import { TruckCreateFormComponent } from './components/truck-create/truck-create-form/truck-create-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [TruckListComponent, TruckGridComponent],
+  declarations: [TruckListComponent, TruckGridComponent, TruckCreateComponent, TruckCreateFormComponent],
   imports: [
     CommonModule,
-    TruckRoutingModule
+    TruckRoutingModule,
+    ReactiveFormsModule
   ],
   exports: []
 })

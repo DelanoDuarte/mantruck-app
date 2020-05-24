@@ -1,1 +1,17 @@
-<p>Truck List Page</p>
+<h2>Trucks </h2>
+<hr />
+
+<div>
+    <button routerLink="/truck/new" class="btn btn-success float-right">New Truck</button>
+</div>
+<br />
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <app-truck-grid [trucks]="trucks"> </app-truck-grid>
+            </div>
+        </div>
+    </div>
+</div>

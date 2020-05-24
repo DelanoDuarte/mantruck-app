@@ -1,1 +1,25 @@
-<p>truck-grid works!</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Model</th>
+            <th scope="col">Engine Power</th>
+            <th scope="col">Fuel</th>
+            <th scope="col">Segments</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let truck of trucks">
+            <td>{{truck.model}}</td>
+            <td>{{truck.enginePower}}</td>
+            <td>{{truck.fuel}}</td>
+            <td>
+                <div *ngIf="truck.segments.length > 0; else emptySegments">
+                    {{truck.segments}}
+                </div>
+                <template #emptySegments>
+                    <p>No Segments Added.</p>
+                </template>
+            </td>
+        </tr>
+    </tbody>
+</table>

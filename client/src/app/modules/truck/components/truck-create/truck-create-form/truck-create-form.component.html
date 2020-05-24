@@ -1,0 +1,49 @@
+<form [formGroup]="truckForm" (ngSubmit)="onSubmitForm()">
+    <div class="form-row">
+        <div class="col-md-8">
+            <label for="model">Model</label>
+            <input type="text" class="form-control" [ngClass]="{'is-valid': model.valid}" id="model"
+                formControlName="model" required>
+            <div class="valid-feedback" *ngIf="model.valid">
+                Looks good!
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4">
+            <label for="enginePower">Engine Power</label>
+            <input type="text" class="form-control" [ngClass]="{'is-valid': enginePower.valid}" id="enginePower"
+                formControlName="enginePower" required>
+            <div class="valid-feedback" *ngIf="enginePower.valid">
+                Looks good!
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 ">
+            <label for="fuel">Fuel</label>
+            <select class="custom-select" [ngClass]="{'is-valid': fuel.valid}" id="fuel" required
+                formControlName="fuel">
+                <option selected [value]="">Choose...</option>
+                <option *ngFor="let fuel of fuels" [value]="fuel">
+                    {{fuel}}
+                </option>
+            </select>
+            <div class="invalid-feedback" *ngIf="!fuel.valid">
+                Please select the fuel of the truck.
+            </div>
+            <div class="valid-feedback" *ngIf="fuel.valid">
+                Looks good!
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-row">
+        <div class="col-md-12">
+            <button class="btn btn-success float-left" [disabled]="!truckForm.valid" type="submit">Save</button>
+        </div>
+    </div>
+</form>
