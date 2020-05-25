@@ -8,9 +8,7 @@
                 Looks good!
             </div>
         </div>
-    </div>
 
-    <div class="form-row">
         <div class="col-md-4">
             <label for="enginePower">Engine Power</label>
             <input type="text" class="form-control" [ngClass]="{'is-valid': enginePower.valid}" id="enginePower"
@@ -31,12 +29,36 @@
                     {{fuel}}
                 </option>
             </select>
-            <div class="invalid-feedback" *ngIf="!fuel.valid">
+            <div class="invalid-feedback" *ngIf="fuel.invalid">
                 Please select the fuel of the truck.
             </div>
             <div class="valid-feedback" *ngIf="fuel.valid">
                 Looks good!
             </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <label for="range">Range</label>
+            <select class="custom-select" [ngClass]="{'is-valid': range.valid}" id="range" required
+                formControlName="range">
+                <option selected [value]="">Choose...</option>
+                <option *ngFor="let range of ranges" [value]="range">
+                    {{range}}
+                </option>
+            </select>
+            <div class="invalid-feedback" *ngIf="range.invalid">
+                Please select the fuel of the truck.
+            </div>
+            <div class="valid-feedback" *ngIf="range.valid">
+                Looks good!
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 ">
+            <label for="fuel">Segments</label>
+            <app-truck-create-segments></app-truck-create-segments>
         </div>
     </div>
 

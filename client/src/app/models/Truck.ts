@@ -6,5 +6,6 @@ export class Truck {
     model: string;
     enginePower: string;
     fuel: string;
+    range: string;
     segments: Segment[];
 }

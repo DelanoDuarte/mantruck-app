@@ -44,6 +44,11 @@ public class Truck implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column
+    @NotNull(message = "The Range field is required.")
+    private RangeType range;
+
+    @Enumerated(EnumType.STRING)
+    @Column
     @NotNull(message = "The Fuel field is required.")
     private FuelType fuel;
 
@@ -88,6 +93,14 @@ public class Truck implements Serializable {
 
     public void setEnginePower(Integer enginePower) {
         this.enginePower = enginePower;
+    }
+
+    public RangeType getRange() {
+        return range;
+    }
+
+    public void setRange(RangeType range) {
+        this.range = range;
     }
 
     public FuelType getFuel() {
@@ -139,6 +152,11 @@ public class Truck implements Serializable {
             return this;
         }
 
+        public TruckBuilder withRangeType(final RangeType rangeType){
+            setRange(rangeType);
+            return this;
+        }
+
         public TruckBuilder addOneSegment(final Segment segment) {
             addSegment(segment);
             return this;
@@ -148,5 +166,4 @@ public class Truck implements Serializable {
             return new Truck(this.getModel(), this.getEnginePower(), this.getFuel(), this.getSegements());
         }
     }
-
 }

@@ -11,6 +11,7 @@ import { TruckService } from 'src/app/services/truck.service';
 export class TruckCreateFormComponent implements OnInit {
 
   fuels: string[] = [];
+  ranges: string[] = [];
 
   truckForm = new FormGroup({
     model: new FormControl('', {
@@ -22,6 +23,9 @@ export class TruckCreateFormComponent implements OnInit {
     fuel: new FormControl('', {
       validators: [Validators.required]
     }),
+    range: new FormControl('', {
+      validators: [Validators.required]
+    }),
     segments: new FormControl([])
   });
 
@@ -31,11 +35,20 @@ export class TruckCreateFormComponent implements OnInit {
   constructor(private truckService: TruckService) { }
 
   ngOnInit(): void {
+    this.loadSelects();
+  }
+
+  loadSelects = () => {
     this.fetchAllFuels();
+    this.fetchAllRanges();
   }
 
   fetchAllFuels() {
     this.truckService.findAllFuels().subscribe(fuelsResponse => this.fuels = fuelsResponse);
+  }
+
+  fetchAllRanges() {
+    this.truckService.findAllRanges().subscribe(rangesResponse => this.ranges = rangesResponse);
   }
 
   onSubmitForm() {
@@ -45,4 +58,5 @@ export class TruckCreateFormComponent implements OnInit {
   get model() { return this.truckForm.get('model'); }
   get enginePower() { return this.truckForm.get('enginePower'); }
   get fuel() { return this.truckForm.get('fuel'); }
+  get range() { return this.truckForm.get('range'); }
 }

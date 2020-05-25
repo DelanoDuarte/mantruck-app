@@ -32,4 +32,8 @@ export class TruckService extends BaseService {
   findAllFuels(): Observable<string[]> {
     return this.httpClient.get<string[]>(`${this._BASE_URL}/fuels`, { headers: this._HEADERS });
   }
+
+  findAllRanges(): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${this._BASE_URL}/ranges`, { headers: this._HEADERS });
+  }
 }

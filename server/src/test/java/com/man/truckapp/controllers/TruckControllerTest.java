@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.man.truckapp.domain.FuelType;
+import com.man.truckapp.domain.RangeType;
 import com.man.truckapp.domain.Truck;
 import com.man.truckapp.repository.TruckRepository;
 import com.man.truckapp.service.TruckService;
@@ -117,5 +118,33 @@ public class TruckControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].model").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].model").exists());
 
+    }
+
+    @Test
+    public void should_returnAllFuelTypesThroughController() throws Exception {
+
+        doReturn(ResponseEntity.ok(FuelType.values())).when(truckController).retunrAllFuelTypes();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/truck/fuels")
+                .characterEncoding("UTF-8")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]", Is.is(FuelType.GASOLINE.name())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1]", Is.is(FuelType.DIESEL.name())));
+    }
+
+    @Test
+    public void should_returnAllRangeTypesThroughController() throws Exception {
+
+        doReturn(ResponseEntity.ok(RangeType.values())).when(truckController).retunrAllRangeTypes();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/truck/ranges")
+                .characterEncoding("UTF-8")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0]", Is.is(RangeType.HEAVY_RANGE.name())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1]", Is.is(RangeType.LIGHT_RANGE.name())));
     }
 }

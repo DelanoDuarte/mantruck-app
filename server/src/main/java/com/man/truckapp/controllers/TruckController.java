@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import javax.ws.rs.core.MediaType;
 
 import com.man.truckapp.domain.FuelType;
+import com.man.truckapp.domain.RangeType;
 import com.man.truckapp.domain.Truck;
 import com.man.truckapp.repository.TruckRepository;
 import com.man.truckapp.service.TruckService;
@@ -83,5 +84,10 @@ public class TruckController {
     @GetMapping("/fuels")
     public ResponseEntity<FuelType[]> retunrAllFuelTypes() {
         return ResponseEntity.ok(FuelType.values());
+    }
+
+    @GetMapping("/ranges")
+    public ResponseEntity<RangeType[]> retunrAllRangeTypes() {
+        return ResponseEntity.ok(RangeType.values());
     }
 }
