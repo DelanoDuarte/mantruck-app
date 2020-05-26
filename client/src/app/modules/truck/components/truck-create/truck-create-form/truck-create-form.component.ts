@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Segment } from 'src/app/models/Segment';
 import { Truck } from 'src/app/models/Truck';
 import { TruckService } from 'src/app/services/truck.service';
 
@@ -9,6 +10,12 @@ import { TruckService } from 'src/app/services/truck.service';
   styleUrls: ['./truck-create-form.component.css']
 })
 export class TruckCreateFormComponent implements OnInit {
+
+  @Input()
+  edit: boolean;
+
+  @Input()
+  truckToEdit: Truck;
 
   fuels: string[] = [];
   ranges: string[] = [];
@@ -35,6 +42,15 @@ export class TruckCreateFormComponent implements OnInit {
   constructor(private truckService: TruckService) { }
 
   ngOnInit(): void {
+    if (this.edit) {
+      this.truckForm.setValue({
+        model: this.truckToEdit.model,
+        enginePower: this.truckToEdit.enginePower,
+        fuel: this.truckToEdit.fuel,
+        range: this.truckToEdit.range,
+        segments: this.truckToEdit.segments
+      });
+    }
     this.loadSelects();
   }
 
@@ -55,8 +71,13 @@ export class TruckCreateFormComponent implements OnInit {
     this.truck.emit(this.truckForm.value);
   }
 
+  segmentsSelected(segments: Segment[]) {
+    this.truckForm.get('segments').setValue(segments);
+  }
+
   get model() { return this.truckForm.get('model'); }
   get enginePower() { return this.truckForm.get('enginePower'); }
   get fuel() { return this.truckForm.get('fuel'); }
   get range() { return this.truckForm.get('range'); }
+  get segments() { return this.truckForm.get('segments'); }
 }

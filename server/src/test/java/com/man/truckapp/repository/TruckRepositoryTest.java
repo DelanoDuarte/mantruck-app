@@ -51,7 +51,7 @@ public class TruckRepositoryTest {
         Truck truck = this.truckBuilderWithSegments();
         Truck savedTruck = truckRepository.saveAndFlush(truck);
 
-        assertTrue(savedTruck.getSegements().size() == 1);
+        assertTrue(savedTruck.getSegments().size() == 1);
     }
 
     private Truck truckBuilder() {

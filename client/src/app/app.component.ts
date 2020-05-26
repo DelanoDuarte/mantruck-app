@@ -11,7 +11,6 @@ export class AppComponent implements AfterViewInit {
   title = 'client';
 
   constructor(private router: Router) {
-    console.log(router.url);
   }
 
   ngAfterViewInit() {

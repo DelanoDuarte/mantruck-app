@@ -5,6 +5,7 @@
             <th scope="col">Engine Power</th>
             <th scope="col">Fuel</th>
             <th scope="col">Segments</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -13,12 +14,16 @@
             <td>{{truck.enginePower}}</td>
             <td>{{truck.fuel}}</td>
             <td>
-                <div *ngIf="truck.segments.length > 0; else emptySegments">
-                    {{truck.segments}}
+                <div *ngIf="truck.segments && truck.segments.length > 0; else emptySegments">
+                    <span *ngFor="let segment of truck.segments"
+                        class="badge badge-pill badge-primary">{{segment.description}} </span>
                 </div>
-                <template #emptySegments>
+                <ng-template #emptySegments>
                     <p>No Segments Added.</p>
-                </template>
+                </ng-template>
+            </td>
+            <td>
+                <app-truck-modal-edit [truck]="truck"></app-truck-modal-edit>
             </td>
         </tr>
     </tbody>

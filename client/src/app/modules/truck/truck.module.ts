@@ -9,16 +9,26 @@ import { TruckCreateFormComponent } from './components/truck-create/truck-create
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TruckCreateSegmentsComponent } from './components/truck-create/truck-create-segments/truck-create-segments.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TruckEditComponent } from './components/truck-edit/truck-edit.component';
+import { TruckModalEditComponent } from './components/truck-edit/truck-modal-edit/truck-modal-edit.component';
 
 
 @NgModule({
-  declarations: [TruckListComponent, TruckGridComponent, TruckCreateComponent, TruckCreateFormComponent, TruckCreateSegmentsComponent],
+  declarations: [
+    TruckListComponent,
+    TruckGridComponent,
+    TruckCreateComponent,
+    TruckCreateFormComponent,
+    TruckCreateSegmentsComponent,
+    TruckEditComponent,
+    TruckModalEditComponent
+  ],
   imports: [
     CommonModule,
     TruckRoutingModule,
     NgSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   exports: []
 })

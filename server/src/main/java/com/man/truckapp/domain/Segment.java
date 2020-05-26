@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_segment")
-public class Segment implements Serializable{
+public class Segment implements Serializable {
 
     /**
      *
@@ -24,6 +24,13 @@ public class Segment implements Serializable{
 
     @Column
     private String description;
+
+    public Segment(String description) {
+        this.description = description;
+    }
+
+    public Segment() {
+    }
 
     public String getDescription() {
         return description;
@@ -41,8 +48,24 @@ public class Segment implements Serializable{
         this.id = id;
     }
 
-    public Segment(String description) {
-        this.description = description;
+    public static SegmentBuilder builder() {
+        return new SegmentBuilder();
     }
 
+    public static class SegmentBuilder extends Segment {
+
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
+        public SegmentBuilder withDescription(final String description) {
+            setDescription(description);
+            return this;
+        }
+
+        public Segment build() {
+            return new Segment(this.getDescription());
+        }
+    }
 }

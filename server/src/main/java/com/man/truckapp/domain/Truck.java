@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,7 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -52,8 +53,9 @@ public class Truck implements Serializable {
     @NotNull(message = "The Fuel field is required.")
     private FuelType fuel;
 
-    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.REMOVE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
-    private List<Segment> segments;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "trucks_segments", joinColumns = @JoinColumn(name = "truck_id"), inverseJoinColumns = @JoinColumn(name = "segment_id"))
+    private List<Segment> segments = new ArrayList<>();
 
     public Truck(String model, Integer enginePower, FuelType fuel) {
         this.model = model;
@@ -112,17 +114,18 @@ public class Truck implements Serializable {
     }
 
     public void addSegment(Segment segment) {
-        if (this.segments == null)
-            this.segments = new ArrayList<>();
-
         this.segments.add(segment);
     }
 
-    public List<Segment> getSegements() {
+    public void removeSegment(Segment segment) {
+        this.segments.remove(segment);
+    }
+
+    public List<Segment> getSegments() {
         return segments;
     }
 
-    public void setSegements(List<Segment> segements) {
+    public void setSegments(List<Segment> segements) {
         this.segments = segements;
     }
 
@@ -133,7 +136,7 @@ public class Truck implements Serializable {
     public static class TruckBuilder extends Truck {
 
         /**
-         *
+         * builder static class for Truck
          */
         private static final long serialVersionUID = 1L;
 
@@ -152,7 +155,7 @@ public class Truck implements Serializable {
             return this;
         }
 
-        public TruckBuilder withRangeType(final RangeType rangeType){
+        public TruckBuilder withRangeType(final RangeType rangeType) {
             setRange(rangeType);
             return this;
         }
@@ -163,7 +166,7 @@ public class Truck implements Serializable {
         }
 
         public Truck build() {
-            return new Truck(this.getModel(), this.getEnginePower(), this.getFuel(), this.getSegements());
+            return new Truck(this.getModel(), this.getEnginePower(), this.getFuel(), this.getSegments());
         }
     }
 }

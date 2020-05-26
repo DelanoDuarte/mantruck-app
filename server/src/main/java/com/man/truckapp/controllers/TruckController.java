@@ -3,7 +3,6 @@ package com.man.truckapp.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
 import javax.ws.rs.core.MediaType;
 
 import com.man.truckapp.domain.FuelType;
@@ -40,7 +39,7 @@ public class TruckController {
     }
 
     @PostMapping
-    public ResponseEntity<Truck> save(@RequestBody @Valid Truck truck) {
+    public ResponseEntity<Truck> save(@RequestBody Truck truck) {
         try {
             Optional<Truck> savedTruck = truckService.save(truck);
             if (savedTruck.isPresent()) {
