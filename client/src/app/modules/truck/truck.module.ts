@@ -11,6 +11,7 @@ import { TruckCreateSegmentsComponent } from './components/truck-create/truck-cr
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TruckEditComponent } from './components/truck-edit/truck-edit.component';
 import { TruckModalEditComponent } from './components/truck-edit/truck-modal-edit/truck-modal-edit.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { TruckModalEditComponent } from './components/truck-edit/truck-modal-edi
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule
   ],
   exports: []
 })

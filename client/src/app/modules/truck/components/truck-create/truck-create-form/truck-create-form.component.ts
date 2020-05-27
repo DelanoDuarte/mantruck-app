@@ -17,6 +17,9 @@ export class TruckCreateFormComponent implements OnInit {
   @Input()
   truckToEdit: Truck;
 
+  @Output()
+  truck = new EventEmitter<Truck>();
+
   fuels: string[] = [];
   ranges: string[] = [];
 
@@ -35,9 +38,6 @@ export class TruckCreateFormComponent implements OnInit {
     }),
     segments: new FormControl([])
   });
-
-  @Output()
-  truck = new EventEmitter<Truck>();
 
   constructor(private truckService: TruckService) { }
 

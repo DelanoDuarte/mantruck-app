@@ -58,9 +58,9 @@
     <div class="form-row">
         <div class="col-md-6 ">
             <label for="fuel">Segments</label>
-            <ng-template *ngIf="!edit; else segmentsToEdit">
+            <div *ngIf="!edit; else segmentsToEdit">
                 <app-truck-create-segments (segmentsSelected)="segmentsSelected($event)"></app-truck-create-segments>
-            </ng-template>
+            </div>
 
             <ng-template #segmentsToEdit>
                 <app-truck-create-segments [segments]="truckToEdit.segments"

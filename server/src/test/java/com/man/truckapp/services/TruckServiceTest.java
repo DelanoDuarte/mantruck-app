@@ -11,7 +11,6 @@ import com.man.truckapp.repository.SegmentRepository;
 import com.man.truckapp.repository.TruckRepository;
 import com.man.truckapp.service.TruckService;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

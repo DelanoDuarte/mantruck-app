@@ -1,4 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import {
+  AfterViewChecked, ChangeDetectorRef, Component,
+  EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges
+} from '@angular/core';
 import { concat, Observable, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { Segment } from 'src/app/models/Segment';
@@ -9,7 +12,7 @@ import { SegmentService } from 'src/app/services/segment.service';
   templateUrl: './truck-create-segments.component.html',
   styleUrls: ['./truck-create-segments.component.css']
 })
-export class TruckCreateSegmentsComponent implements OnInit {
+export class TruckCreateSegmentsComponent implements OnInit, OnChanges {
 
   @Input()
   segments: Segment[];
@@ -21,13 +24,19 @@ export class TruckCreateSegmentsComponent implements OnInit {
   @Output()
   segmentsSelected = new EventEmitter<Segment[]>();
 
-  constructor(private segmentService: SegmentService) { }
+  selectedSegments: Segment[] = [];
+
+  constructor(private segmentService: SegmentService, private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    if (this.segments) {
-      this.segmentsAsync$ = of(this.segments);
-    }
     this.findSegments();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.segments.currentValue !== changes.segments.previousValue) {
+      this.selectedSegments = this.segments;
+      this.cdRef.detectChanges();
+    }
   }
 
   trackByDescription(item: Segment) {
@@ -35,7 +44,9 @@ export class TruckCreateSegmentsComponent implements OnInit {
   }
 
   emitSegmentsSelected(segments: any[]) {
+    console.log(segments);
     this.segmentsSelected.emit(segments);
+    this.selectedSegments = segments;
   }
 
   private findSegments() {
