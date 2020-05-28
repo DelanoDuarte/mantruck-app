@@ -29,6 +29,11 @@ public class Segment implements Serializable {
         this.description = description;
     }
 
+    public Segment(Long id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     public Segment() {
     }
 

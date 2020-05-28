@@ -1,6 +1,6 @@
 <div>
     <ng-select [items]="segmentsAsync$ | async" [addTag]="true" [multiple]="true" [selectOnTab]="true"
-        [hideSelected]="true" typeToSearchText="Please enter 2 or more characters" [trackByFn]="trackByDescription"
+        [hideSelected]="true" typeToSearchText="Please enter 2 or more characters" [trackByFn]="trackById"
         [minTermLength]="2" [loading]="segmentLoading" [typeahead]="segmentInput$" [(ngModel)]="selectedSegments"
         (change)="emitSegmentsSelected($event)" bindLabel="description">
     </ng-select>

@@ -12,6 +12,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TruckEditComponent } from './components/truck-edit/truck-edit.component';
 import { TruckModalEditComponent } from './components/truck-edit/truck-modal-edit/truck-modal-edit.component';
 import { SharedModule } from '../shared/shared.module';
+import { TruckDeleteModalComponent } from './components/truck-delete-modal/truck-delete-modal.component';
+import { TruckSearchComponent } from './components/truck-list/truck-search/truck-search.component';
+import { TruckSearchFormComponent } from './components/truck-list/truck-search/truck-search-form/truck-search-form.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { SharedModule } from '../shared/shared.module';
     TruckCreateFormComponent,
     TruckCreateSegmentsComponent,
     TruckEditComponent,
-    TruckModalEditComponent
+    TruckModalEditComponent,
+    TruckDeleteModalComponent,
+    TruckSearchComponent,
+    TruckSearchFormComponent
   ],
   imports: [
     CommonModule,

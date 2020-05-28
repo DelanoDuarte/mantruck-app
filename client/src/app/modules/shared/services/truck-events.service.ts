@@ -6,15 +6,24 @@ import { Subject } from 'rxjs';
 })
 export class TruckEventsService {
 
-  private afterEditTruckSubject = new Subject();
+  private updateListTruck = new Subject();
+  private resetFormSearchTruck = new Subject();
 
   constructor() { }
 
-  fireEventAfterEditTruc() {
-    this.afterEditTruckSubject.next();
+  updateTruckList() {
+    this.updateListTruck.next();
   }
 
-  getEventAfterEditTruck() {
-    return this.afterEditTruckSubject.asObservable();
+  listTruckListener() {
+    return this.updateListTruck.asObservable();
+  }
+
+  clearFiltersForm() {
+    this.resetFormSearchTruck.next();
+  }
+
+  searchTruckFormListener() {
+    return this.resetFormSearchTruck.asObservable();
   }
 }

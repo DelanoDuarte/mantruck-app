@@ -1,7 +1,4 @@
-import {
-  AfterViewChecked, ChangeDetectorRef, Component,
-  EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { concat, Observable, of, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { Segment } from 'src/app/models/Segment';
@@ -39,12 +36,11 @@ export class TruckCreateSegmentsComponent implements OnInit, OnChanges {
     }
   }
 
-  trackByDescription(item: Segment) {
+  trackById(item: Segment) {
     return item.id;
   }
 
   emitSegmentsSelected(segments: any[]) {
-    console.log(segments);
     this.segmentsSelected.emit(segments);
     this.selectedSegments = segments;
   }

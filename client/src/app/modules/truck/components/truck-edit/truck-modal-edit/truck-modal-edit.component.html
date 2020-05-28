@@ -6,9 +6,11 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-truck-create-form [edit]="true" [truckToEdit]="truck" (truck)="editedTruck($event)">
+        <app-truck-create-form [edit]="true" [truckToEdit]="truck" (truck)="editedTruck($event)" (cancel)="cancel()">
         </app-truck-create-form>
     </div>
 </ng-template>
 
-<button class="btn btn-sm btn-info" (click)="openEditModal(editModal)">Edit</button>
+<button class="btn btn-sm btn-info mr-1" (click)="openEditModal(editModal)">
+    <i class="fas fa-pen"></i>
+</button>

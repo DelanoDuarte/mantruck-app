@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TruckCreateSegmentsComponent } from './truck-create-segments.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('TruckCreateSegmentsComponent', () => {
   let component: TruckCreateSegmentsComponent;
@@ -8,9 +9,10 @@ describe('TruckCreateSegmentsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TruckCreateSegmentsComponent ]
+      declarations: [TruckCreateSegmentsComponent],
+      imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

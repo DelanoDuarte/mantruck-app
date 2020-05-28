@@ -3,6 +3,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Truck } from 'src/app/models/Truck';
 import { TruckService } from 'src/app/services/truck.service';
 import { TruckEventsService } from 'src/app/modules/shared/services/truck-events.service';
+import { AlertService } from 'src/app/modules/shared/alert/alert.service';
 
 
 @Component({
@@ -16,7 +17,11 @@ export class TruckModalEditComponent implements OnInit {
   @Input()
   truck: Truck;
 
-  constructor(private modalService: NgbModal, private truckService: TruckService, private truckEventService: TruckEventsService) { }
+  constructor(
+    private modalService: NgbModal,
+    private truckService: TruckService,
+    private truckEventService: TruckEventsService,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
   }
@@ -26,11 +31,16 @@ export class TruckModalEditComponent implements OnInit {
       truck.id = this.truck.id;
       this.truckService.save(truck).subscribe(truckSaved => {
         this.modalService.dismissAll();
-        this.truckEventService.fireEventAfterEditTruc();
+        this.truckEventService.updateTruckList();
+        this.alertService.alert('Truck successfully edited', 'success');
       });
     } catch (error) {
 
     }
+  }
+
+  cancel() {
+    this.modalService.dismissAll();
   }
 
   openEditModal(content: any) {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -35,6 +36,7 @@ public class Truck implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Basic
     @Column
     @NotNull(message = "The model field is required.")
     private String model;
@@ -61,6 +63,17 @@ public class Truck implements Serializable {
         this.model = model;
         this.enginePower = enginePower;
         this.fuel = fuel;
+    }
+
+    public Truck(@NotNull(message = "The model field is required.") String model,
+            @NotNull(message = "The Engine Power field is required.") Integer enginePower,
+            @NotNull(message = "The Range field is required.") RangeType range,
+            @NotNull(message = "The Fuel field is required.") FuelType fuel, List<Segment> segments) {
+        this.model = model;
+        this.enginePower = enginePower;
+        this.range = range;
+        this.fuel = fuel;
+        this.segments = segments;
     }
 
     public Truck(String model, Integer enginePower, FuelType fuel, List<Segment> segements) {
@@ -166,7 +179,8 @@ public class Truck implements Serializable {
         }
 
         public Truck build() {
-            return new Truck(this.getModel(), this.getEnginePower(), this.getFuel(), this.getSegments());
+            return new Truck(this.getModel(), this.getEnginePower(), this.getRange(), this.getFuel(),
+                    this.getSegments());
         }
     }
 }

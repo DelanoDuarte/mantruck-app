@@ -1,0 +1,43 @@
+<form [formGroup]="truckForm">
+    <div class="form-row">
+        <div class="col-md-8">
+            <label for="model">Model</label>
+            <input type="text" class="form-control" (change)="onChangeValue()" id="model" formControlName="model"
+                required>
+        </div>
+
+        <div class="col-md-4">
+            <label for="enginePower">Engine Power</label>
+            <input type="text" class="form-control" (change)="onChangeValue()" id="enginePower"
+                formControlName="enginePower">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 ">
+            <label for="fuel">Fuel</label>
+            <select class="custom-select" id="fuel" formControlName="fuel" (change)="onChangeValue()">
+                <option *ngFor="let fuel of fuels" [value]="fuel">
+                    {{fuel}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-6 ">
+            <label for="range">Range</label>
+            <select class="custom-select" id="range" formControlName="range" (change)="onChangeValue()">
+                <option *ngFor="let range of ranges" [value]="range">
+                    {{range}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 ">
+            <label for="fuel">Segments</label>
+            <app-truck-create-segments (change)="onChangeValue()" (segmentsSelected)="segmentsSelected($event)">
+            </app-truck-create-segments>
+        </div>
+    </div>
+</form>

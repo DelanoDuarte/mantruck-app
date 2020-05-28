@@ -1,8 +1,8 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Truck } from '../models/Truck';
 import { environment } from 'src/environments/environment';
+import { Truck } from '../models/Truck';
 import { BaseService } from './base.service';
 
 
@@ -21,12 +21,21 @@ export class TruckService extends BaseService {
     return this.httpClient.get<Truck[]>(this._BASE_URL, { headers: this._HEADERS });
   }
 
+  findAllWithFilterAndPaginated(truck: Truck, page, size): Observable<any> {
+    const httpParams = new HttpParams({}).set('page', page).set('size', size);
+    return this.httpClient.post<any>(`${this._BASE_URL}/find`, truck, { headers: this._HEADERS, params: httpParams });
+  }
+
   save(truck: Truck): Observable<Truck> {
     return this.httpClient.post<Truck>(this._BASE_URL, truck, { headers: this._HEADERS });
   }
 
   findOne(id: number): Observable<Truck> {
     return this.httpClient.get<Truck>(`${this._BASE_URL}/${id}`, { headers: this._HEADERS });
+  }
+
+  deleteOne(id: number): Observable<any> {
+    return this.httpClient.delete<Truck>(`${this._BASE_URL}/${id}`, { headers: this._HEADERS });
   }
 
   findAllFuels(): Observable<string[]> {

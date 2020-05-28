@@ -47,11 +47,18 @@ public class TruckControllerTest {
     @Test
     public void should_saveNewTruckThroughController() throws Exception {
 
-        Truck truck = Truck.builder().withModel("TGX 1080").withEnginePower(450).withFuelType(FuelType.BIO_DIESEL)
+        Truck truck = Truck.builder().withModel("TGX 1080")
+                .withEnginePower(450)
+                .withFuelType(FuelType.BIO_DIESEL)
+                .withRangeType(RangeType.LIGHT_RANGE)
                 .build();
 
-        Truck truckSaved = Truck.builder().withModel(truck.getModel()).withEnginePower(truck.getEnginePower())
-                .withFuelType(truck.getFuel()).build();
+        Truck truckSaved = Truck.builder()
+                .withModel(truck.getModel())
+                .withEnginePower(truck.getEnginePower())
+                .withFuelType(truck.getFuel())
+                .withRangeType(truck.getRange())
+                .build();
 
         truckSaved.setId(1L);
 

@@ -4,6 +4,7 @@
             <th scope="col">Model</th>
             <th scope="col">Engine Power</th>
             <th scope="col">Fuel</th>
+            <th scope="col">Range</th>
             <th scope="col">Segments</th>
             <th scope="col"></th>
         </tr>
@@ -13,6 +14,7 @@
             <td>{{truck.model}}</td>
             <td>{{truck.enginePower}}</td>
             <td>{{truck.fuel}}</td>
+            <td>{{truck.range}}</td>
             <td>
                 <div *ngIf="truck.segments && truck.segments.length > 0; else emptySegments">
                     <span *ngFor="let segment of truck.segments"
@@ -23,7 +25,12 @@
                 </ng-template>
             </td>
             <td>
-                <app-truck-modal-edit [truck]="truck"></app-truck-modal-edit>
+                <div class="col px-2">
+                    <app-truck-modal-edit [truck]="truck"></app-truck-modal-edit>
+                    <app-truck-delete-modal [truck]="truck"></app-truck-delete-modal>
+                </div>
+                <div class="col px-2">
+                </div>
             </td>
         </tr>
     </tbody>

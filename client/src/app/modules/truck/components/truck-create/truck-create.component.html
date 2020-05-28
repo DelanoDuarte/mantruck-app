@@ -5,7 +5,8 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                <app-truck-create-form (truck)="mapTruckToSave($event)"></app-truck-create-form>
+                <app-truck-create-form (truck)="mapTruckToSave($event)" (cancel)="cancelAddNewTruck()">
+                </app-truck-create-form>
             </div>
         </div>
     </div>

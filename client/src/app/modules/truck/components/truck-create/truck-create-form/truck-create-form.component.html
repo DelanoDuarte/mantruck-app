@@ -73,7 +73,8 @@
     <br />
     <div class="form-row">
         <div class="col-md-12">
-            <button class="btn btn-success float-left" [disabled]="!truckForm.valid" type="submit">Save</button>
+            <button class="btn btn-success mr-2 text-center" [disabled]="!truckForm.valid" type="submit">Save</button>
+            <button class="btn btn-warning mr-2 text-center" (click)="onCancel()">Cancel</button>
         </div>
     </div>
 </form>

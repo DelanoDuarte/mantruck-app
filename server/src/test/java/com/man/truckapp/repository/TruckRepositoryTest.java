@@ -2,14 +2,21 @@ package com.man.truckapp.repository;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import com.man.truckapp.domain.FuelType;
-import com.man.truckapp.domain.Segment;
+import com.man.truckapp.domain.RangeType;
 import com.man.truckapp.domain.Truck;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -18,6 +25,14 @@ public class TruckRepositoryTest {
 
     @Autowired
     private TruckRepository truckRepository;
+
+    @Before
+    public void beforeTest() {
+        Truck truck1 = Truck.builder().withModel("TGS1870").withEnginePower(440).withFuelType(FuelType.DIESEL)
+                .withRangeType(RangeType.LIGHT_RANGE).build();
+
+        truckRepository.saveAndFlush(truck1);
+    }
 
     @Test
     public void should_saveANewTruckInDatabase() {
@@ -47,22 +62,23 @@ public class TruckRepositoryTest {
     }
 
     @Test
-    public void should_saveATruckWithSegments(){
-        Truck truck = this.truckBuilderWithSegments();
-        Truck savedTruck = truckRepository.saveAndFlush(truck);
+    public void should_findAllTrucksWithFilter() {
 
-        assertTrue(savedTruck.getSegments().size() == 1);
+        Truck searchTruck = Truck.builder().withModel("TGS").withFuelType(FuelType.DIESEL).build();
+
+        ExampleMatcher customExampleMatcher = ExampleMatcher.matching().withIgnoreCase().withIgnoreNullValues()
+                .withMatcher("model", match -> match.contains().ignoreCase());
+
+        Optional<Page<Truck>> trucksFiltered = Optional
+                .of(truckRepository.findAll(Example.of(searchTruck, customExampleMatcher), PageRequest.of(0, 10)));
+
+        assertTrue(trucksFiltered.get().getContent().size() == 1);
     }
 
     private Truck truckBuilder() {
-        Truck truck = Truck.builder().withModel("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL).build();
+        Truck truck = Truck.builder().withModel("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL)
+                .withRangeType(RangeType.LIGHT_RANGE).build();
         return truck;
     }
 
-    private Truck truckBuilderWithSegments() {
-        Truck truck = Truck.builder().withModel("TGS 1870").withEnginePower(440).withFuelType(FuelType.DIESEL)
-                .addOneSegment(new Segment("Wastedisposal"))
-                .build();
-        return truck;
-    }
 }

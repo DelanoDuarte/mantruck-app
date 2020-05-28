@@ -20,6 +20,10 @@ export class TruckCreateFormComponent implements OnInit {
   @Output()
   truck = new EventEmitter<Truck>();
 
+  @Output()
+  cancel = new EventEmitter();
+
+
   fuels: string[] = [];
   ranges: string[] = [];
 
@@ -69,6 +73,10 @@ export class TruckCreateFormComponent implements OnInit {
 
   onSubmitForm() {
     this.truck.emit(this.truckForm.value);
+  }
+
+  onCancel() {
+    this.cancel.emit();
   }
 
   segmentsSelected(segments: Segment[]) {

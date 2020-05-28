@@ -2,6 +2,7 @@ package com.man.truckapp.services;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import com.man.truckapp.domain.FuelType;
@@ -62,11 +63,15 @@ public class TruckServiceTest {
 
         segment2.setId(1L);
 
+        Segment segmentSaved = new Segment(2L, segment1.getDescription());
+
         Truck truck = Truck.builder().withModel("Model Class A").withEnginePower(340).withFuelType(FuelType.DIESEL)
                 .addOneSegment(segment1).addOneSegment(segment2).build();
 
         Truck truckToReturn = truck;
         truckToReturn.setId(1L);
+
+        Mockito.when(segmentRepository.saveAll(Arrays.asList(segment1))).thenReturn(Arrays.asList(segmentSaved));
 
         Mockito.when(truckRepository.save(truck)).thenReturn(truckToReturn);
         Optional<Truck> truckAfterSave = truckService.save(truck);

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TruckModalEditComponent } from './truck-modal-edit.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('TruckModalEditComponent', () => {
   let component: TruckModalEditComponent;
@@ -8,9 +9,10 @@ describe('TruckModalEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TruckModalEditComponent ]
+      declarations: [TruckModalEditComponent],
+      imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Truck } from 'src/app/models/Truck';
 
 @Component({
@@ -10,9 +10,6 @@ export class TruckGridComponent implements OnInit {
 
   @Input()
   trucks: Truck[] = [];
-
-  @Output()
-  selectedTruck = new EventEmitter<any>();
 
   constructor() { }
 
