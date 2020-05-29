@@ -1,7 +1,12 @@
 package com.man.truckapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum RangeType {
-    HEAVY_RANGE("Heavy Range"), LIGHT_RANGE("Light Range");
+    @JsonProperty("Heavy Range")
+    HEAVY_RANGE("Heavy Range"),
+    @JsonProperty("Light Range") 
+    LIGHT_RANGE("Light Range");
 
     private final String range;
 

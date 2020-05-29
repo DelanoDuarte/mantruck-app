@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'truck', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule), },
   { path: 'truck', loadChildren: () => import('./modules/truck/truck.module').then(m => m.TruckModule) }
 ];

@@ -35,7 +35,7 @@ export class TruckModalEditComponent implements OnInit {
         this.alertService.alert('Truck successfully edited', 'success');
       });
     } catch (error) {
-
+      this.alertService.alert('Something bad happened', 'danger');
     }
   }
 

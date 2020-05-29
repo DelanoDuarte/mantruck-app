@@ -2,12 +2,6 @@
     font-size: .875rem;
   }
   
-  .feather {
-    width: 16px;
-    height: 16px;
-    vertical-align: text-bottom;
-  }
-  
   /*
    * Sidebar
    */
@@ -49,7 +43,7 @@
     color: #333;
   }
   
-  .sidebar .nav-link .feather {
+  .sidebar .nav-link  {
     margin-right: 4px;
     color: #999;
   }
@@ -58,8 +52,8 @@
     color: #007bff;
   }
   
-  .sidebar .nav-link:hover .feather,
-  .sidebar .nav-link.active .feather {
+  .sidebar .nav-link:hover ,
+  .sidebar .nav-link.active  {
     color: inherit;
   }
   

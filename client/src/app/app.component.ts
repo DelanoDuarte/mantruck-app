@@ -1,5 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
-import * as Feather from 'feather-icons';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,19 +6,16 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit {
   title = 'client';
 
   constructor(private router: Router) {
   }
 
-  ngAfterViewInit() {
-    Feather.replace();
-  }
+  ngOnInit() { }
 
   returnMenuList(): any[] {
     return [
-      { path: '/home', active: this.isPathActivated('/home'), label: 'Home', icon: 'home' },
       { path: '/truck', active: this.isPathActivated('/truck'), label: 'Truck', icon: 'truck' }
     ];
   }

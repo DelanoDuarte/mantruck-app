@@ -1,5 +1,18 @@
 package com.man.truckapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum FuelType {
-    GASOLINE, DIESEL, OFF_ROAD_DIESEL, BIO_DIESEL, PROPANE, ETHANOL
+    @JsonProperty("Gasoline")
+    GASOLINE,
+    @JsonProperty("Diesel")
+    DIESEL,
+    @JsonProperty("Off Road Diesel")
+    OFF_ROAD_DIESEL,
+    @JsonProperty("Bio Diesel")
+    BIO_DIESEL,
+    @JsonProperty("Propane")
+    PROPANE,
+    @JsonProperty("Ethanol")
+    ETHANOL
 }

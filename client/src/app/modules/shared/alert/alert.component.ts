@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from './alert.service';
-import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-alert',
@@ -12,7 +11,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   alertSubscription: Subscription;
   message: string;
-  type: string;
+  type = 'info';
 
   constructor(private alertService: AlertService) { }
 
@@ -20,10 +19,9 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.alertSubscription = this.alertService.onAlerts().subscribe(alert => {
       this.message = alert.message;
       this.type = alert.type;
-
-      this.alertService.onAlerts().pipe(
-        debounceTime(5000)
-      ).subscribe(() => this.message = '');
+      setTimeout(() => {
+        this.message = '';
+      }, 5000);
     });
   }
   ngOnDestroy(): void {
