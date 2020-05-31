@@ -2,7 +2,7 @@
 ### Project with the objective to maintain truck data.
 
 ## Demo
-![alt](demo/shorten_url_app.gif)
+![alt](demo/man-truck-app.gif)
 
 ## Stack
 ### Backend
