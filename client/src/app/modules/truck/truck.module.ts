@@ -13,6 +13,7 @@ import { TruckSearchFormComponent } from './components/truck-list/truck-search/t
 import { TruckSearchComponent } from './components/truck-list/truck-search/truck-search.component';
 import { TruckModalEditComponent } from './components/truck-modal-edit/truck-modal-edit.component';
 import { TruckRoutingModule } from './truck-routing.module';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -32,6 +33,7 @@ import { TruckRoutingModule } from './truck-routing.module';
     CommonModule,
     TruckRoutingModule,
     NgSelectModule,
+    NgbPaginationModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModule

@@ -25,7 +25,7 @@ export class TruckSearchFormComponent implements OnInit, OnDestroy {
     }),
     range: new FormControl(null, {
     }),
-    segments: new FormControl(null)
+    segments: new FormControl([])
   });
 
   @Output()
@@ -63,6 +63,7 @@ export class TruckSearchFormComponent implements OnInit, OnDestroy {
 
   segmentsSelected(segments: Segment[]) {
     this.truckForm.get('segments').setValue(segments);
+    this.truck.emit(this.truckForm.value);
   }
 
   get model() { return this.truckForm.get('model'); }

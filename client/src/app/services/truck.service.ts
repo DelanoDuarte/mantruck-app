@@ -21,6 +21,11 @@ export class TruckService extends BaseService {
     return this.httpClient.get<Truck[]>(this._BASE_URL, { headers: this._HEADERS });
   }
 
+  findAllPaginated(page, size): Observable<any> {
+    const httpParams = new HttpParams({}).set('page', page).set('size', size);
+    return this.httpClient.get<any>(`${this._BASE_URL}/paginated`, { headers: this._HEADERS, params: httpParams });
+  }
+
   findAllWithFilterAndPaginated(truck: Truck, page, size): Observable<any> {
     const httpParams = new HttpParams({}).set('page', page).set('size', size);
     return this.httpClient.post<any>(`${this._BASE_URL}/find`, truck, { headers: this._HEADERS, params: httpParams });

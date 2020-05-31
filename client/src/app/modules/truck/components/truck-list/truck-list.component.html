@@ -26,7 +26,11 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <app-truck-grid [trucks]="trucks"> </app-truck-grid>
+                        <app-truck-grid [trucks]="trucks" [page]='page' [pageSize]='pageSize'
+                            [totalElements]='totalElements' 
+                            (itemsPerPageChanged)="itemsPerPageChanged($event)"
+                            (pageChanged)='afterChangePage($event)'>
+                        </app-truck-grid>
                     </div>
                 </div>
             </div>

@@ -123,4 +123,18 @@ public class TruckController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    @GetMapping("/paginated")
+    public ResponseEntity<Page<Truck>> findAllTrucksPaginated(@RequestParam("page") int page,
+            @RequestParam("size") int size) {
+        try {
+            Optional<Page<Truck>> allTrucks = Optional.of(truckRepository.findAll(PageRequest.of(page, size)));
+            if (allTrucks.isPresent()) {
+                return ResponseEntity.ok(allTrucks.get());
+            }
+        } catch (Exception e) {
+            logger.error("Error on find all trucks paginated method on controller: " + e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
 }

@@ -29,16 +29,16 @@ export class TruckCreateFormComponent implements OnInit {
 
   truckForm = new FormGroup({
     model: new FormControl('', {
-      validators: [Validators.required]
+      validators: [Validators.required, Validators.minLength(3)]
     }),
     enginePower: new FormControl('', {
       validators: [Validators.required]
     }),
     fuel: new FormControl('', {
-      validators: [Validators.required]
+      validators: [Validators.required, Validators.minLength(2)]
     }),
     range: new FormControl('', {
-      validators: [Validators.required]
+      validators: [Validators.required, Validators.minLength(2)]
     }),
     segments: new FormControl([])
   });

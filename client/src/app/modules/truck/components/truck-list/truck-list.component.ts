@@ -14,6 +14,8 @@ export class TruckListComponent implements OnInit, OnDestroy {
   trucks: Truck[] = [];
   truck: Truck;
   page = 1;
+  pageSize = 10;
+  totalElements: number;
 
   truckSubscription: Subscription;
 
@@ -35,7 +37,22 @@ export class TruckListComponent implements OnInit, OnDestroy {
     if (this.truck) {
       this.searchTruck(this.truck);
     }
-    this.truckService.findAll().subscribe(trucks => this.trucks = trucks);
+    this.truckService.findAllPaginated(this.page - 1, this.pageSize).subscribe(response => {
+      this.trucks = response.content;
+      this.pageSize = response.pageable.pageSize;
+      this.totalElements = response.totalElements;
+    });
+  }
+
+  afterChangePage(page) {
+    console.log(page);
+    this.page = page;
+    this.fetchAllTrucks();
+  }
+
+  itemsPerPageChanged(pageSize) {
+    this.pageSize = pageSize;
+    this.fetchAllTrucks();
   }
 
   mapTruck(truck: Truck) {
@@ -50,6 +67,8 @@ export class TruckListComponent implements OnInit, OnDestroy {
   searchTruck(truck: Truck) {
     this.truckService.findAllWithFilterAndPaginated(this.truck, this.page - 1, 10).subscribe(response => {
       this.trucks = response.content;
+      this.pageSize = response.pageable.pageSize;
+      this.totalElements = response.totalElements;
     });
   }
 

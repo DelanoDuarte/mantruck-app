@@ -41,7 +41,7 @@ After downloading all dependencies, use the following command to run the **backe
 
 To check the rest api docs, use the link below:
 
-[API Documentation](http://localhost:8080/swagger-ui/index.html)
+[API Documentation](http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config)
 
 ### Run tests
 From the **server** folder, perform the following command to run unit tests:
