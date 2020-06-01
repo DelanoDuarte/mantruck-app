@@ -1,4 +1,4 @@
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th scope="col">Model</th>
@@ -17,19 +17,50 @@
             <td>{{truck.range}}</td>
             <td>
                 <div *ngIf="truck.segments && truck.segments.length > 0; else emptySegments">
-                    <span *ngFor="let segment of truck.segments"
+
+                    <span *ngFor="let segment of truck.segments | slice:0:3; let i=index"
                         class="badge badge-pill badge-primary">{{segment.description}} </span>
+
+                    <div *ngIf="truck.segments.length > 3">
+                        <ng-template #popContent>
+                            <span *ngFor="let segment of truck.segments | slice:3:truck.segments.length;"
+                                class="badge badge-pill badge-primary">{{segment.description}} </span>
+                        </ng-template>
+
+                        <a href="javascript:void(0);" class="badge badge-pill badge-secondary" [ngbPopover]="popContent"
+                            placement="top">
+                            +{{truck.segments.slice(3, truck.segments.length).length}}</a>
+                    </div>
                 </div>
                 <ng-template #emptySegments>
                     <p>No Segments Added.</p>
                 </ng-template>
             </td>
             <td>
+                <div *ngIf="truck.colors && truck.colors.length > 0; else emptyColors">
+
+                    <span *ngFor="let color of truck.colors | slice:0:3; let i=index"
+                        class="badge badge-pill">{{color.color}} </span>
+
+                    <div *ngIf="truck.colors.length > 3">
+                        <ng-template #popContent>
+                            <span *ngFor="let color of truck.colors | slice:3:truck.colors.length;"
+                                class="badge badge-pill">{{color.color}} </span>
+                        </ng-template>
+
+                        <a href="javascript:void(0);" class="badge badge-pill badge-secondary" [ngbPopover]="popContent"
+                            placement="top">
+                            +{{truck.colors.slice(3, truck.colors.length).length}}</a>
+                    </div>
+                </div>
+                <ng-template #emptyColors>
+                    <p>No Colors Added.</p>
+                </ng-template>
+            </td>
+            <td>
                 <div class="col px-2">
                     <app-truck-modal-edit [truck]="truck"></app-truck-modal-edit>
                     <app-truck-delete-modal [truck]="truck"></app-truck-delete-modal>
-                </div>
-                <div class="col px-2">
                 </div>
             </td>
         </tr>

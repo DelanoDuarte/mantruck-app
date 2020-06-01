@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Segment } from 'src/app/models/Segment';
 import { Truck } from 'src/app/models/Truck';
 import { TruckService } from 'src/app/services/truck.service';
+import { Color } from 'src/app/models/Color';
 
 @Component({
   selector: 'app-truck-create-form',
@@ -40,7 +41,8 @@ export class TruckCreateFormComponent implements OnInit {
     range: new FormControl('', {
       validators: [Validators.required, Validators.minLength(2)]
     }),
-    segments: new FormControl([])
+    segments: new FormControl([]),
+    colors: new FormControl([])
   });
 
   constructor(private truckService: TruckService) { }
@@ -52,7 +54,8 @@ export class TruckCreateFormComponent implements OnInit {
         enginePower: this.truckToEdit.enginePower,
         fuel: this.truckToEdit.fuel,
         range: this.truckToEdit.range,
-        segments: this.truckToEdit.segments
+        segments: this.truckToEdit.segments,
+        colors: this.truckToEdit.colors
       });
     }
     this.loadSelects();
@@ -83,9 +86,14 @@ export class TruckCreateFormComponent implements OnInit {
     this.truckForm.get('segments').setValue(segments);
   }
 
+  colorsSelected(colors: Color[]) {
+    this.truckForm.get('colors').setValue(colors);
+  }
+
   get model() { return this.truckForm.get('model'); }
   get enginePower() { return this.truckForm.get('enginePower'); }
   get fuel() { return this.truckForm.get('fuel'); }
   get range() { return this.truckForm.get('range'); }
   get segments() { return this.truckForm.get('segments'); }
+  get colors() { return this.truckForm.get('colors'); }
 }

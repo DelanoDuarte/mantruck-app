@@ -59,6 +59,10 @@ public class Truck implements Serializable {
     @JoinTable(name = "trucks_segments", joinColumns = @JoinColumn(name = "truck_id"), inverseJoinColumns = @JoinColumn(name = "segment_id"))
     private List<Segment> segments = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "trucks_colors", joinColumns = @JoinColumn(name = "truck_id"), inverseJoinColumns = @JoinColumn(name = "color_id"))
+    private List<Color> colors = new ArrayList<>();
+
     public Truck(String model, Integer enginePower, FuelType fuel) {
         this.model = model;
         this.enginePower = enginePower;
@@ -68,12 +72,14 @@ public class Truck implements Serializable {
     public Truck(@NotNull(message = "The model field is required.") String model,
             @NotNull(message = "The Engine Power field is required.") Integer enginePower,
             @NotNull(message = "The Range field is required.") RangeType range,
-            @NotNull(message = "The Fuel field is required.") FuelType fuel, List<Segment> segments) {
+            @NotNull(message = "The Fuel field is required.") FuelType fuel, List<Segment> segments,
+            List<Color> colors) {
         this.model = model;
         this.enginePower = enginePower;
         this.range = range;
         this.fuel = fuel;
         this.segments = segments;
+        this.colors = colors;
     }
 
     public Truck(String model, Integer enginePower, FuelType fuel, List<Segment> segements) {
@@ -142,6 +148,18 @@ public class Truck implements Serializable {
         this.segments = segements;
     }
 
+    public List<Color> getColors() {
+        return colors;
+    }
+
+    public void addColor(Color color) {
+        this.colors.add(color);
+    }
+
+    public void setColors(List<Color> colors) {
+        this.colors = colors;
+    }
+
     public static TruckBuilder builder() {
         return new TruckBuilder();
     }
@@ -178,9 +196,70 @@ public class Truck implements Serializable {
             return this;
         }
 
+        public TruckBuilder addOneColor(final Color color) {
+            addColor(color);
+            return this;
+        }
+
         public Truck build() {
             return new Truck(this.getModel(), this.getEnginePower(), this.getRange(), this.getFuel(),
-                    this.getSegments());
+                    this.getSegments(), this.getColors());
         }
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((enginePower == null) ? 0 : enginePower.hashCode());
+        result = prime * result + ((fuel == null) ? 0 : fuel.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((model == null) ? 0 : model.hashCode());
+        result = prime * result + ((range == null) ? 0 : range.hashCode());
+        result = prime * result + ((segments == null) ? 0 : segments.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Truck other = (Truck) obj;
+        if (enginePower == null) {
+            if (other.enginePower != null)
+                return false;
+        } else if (!enginePower.equals(other.enginePower))
+            return false;
+        if (fuel != other.fuel)
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (model == null) {
+            if (other.model != null)
+                return false;
+        } else if (!model.equals(other.model))
+            return false;
+        if (range != other.range)
+            return false;
+        if (segments == null) {
+            if (other.segments != null)
+                return false;
+        } else if (!segments.equals(other.segments))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Truck [enginePower=" + enginePower + ", fuel=" + fuel + ", id=" + id + ", model=" + model + ", range="
+                + range + ", segments=" + segments + "]";
+    }
+
 }

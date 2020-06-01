@@ -39,7 +39,7 @@
 
         <div class="col-md-6 ">
             <label for="range">Range</label>
-            <select class="form-control" [ngClass]="{'is-valid': range.valid}" id="range" required
+            <select class="custom-select" [ngClass]="{'is-valid': range.valid}" id="range" required
                 formControlName="range">
                 <option value="" selected>Choose...</option>
                 <option *ngFor="let range of ranges" [value]="range">
@@ -66,6 +66,21 @@
                 <app-truck-create-segments [segments]="truckToEdit.segments"
                     (segmentsSelected)="segmentsSelected($event)">
                 </app-truck-create-segments>
+            </ng-template>
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="col-md-6 ">
+            <label for="fuel">Colors</label>
+            <div *ngIf="!edit; else colorsToEdit">
+                <app-truck-create-colors (colorsSelected)="colorsSelected($event)"></app-truck-create-colors>
+            </div>
+
+            <ng-template #colorsToEdit>
+                <app-truck-create-colors [colors]="truckToEdit.colors" (colorsSelected)="colorsSelected($event)">
+                </app-truck-create-colors>
             </ng-template>
         </div>
     </div>

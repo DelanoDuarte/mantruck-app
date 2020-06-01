@@ -1,0 +1,7 @@
+<div>
+    <ng-select [items]="colorsAsync$ | async" [addTag]="true" [multiple]="true" [selectOnTab]="true"
+        [hideSelected]="true" typeToSearchText="Please enter 2 or more characters" [trackByFn]="trackById"
+        [minTermLength]="2" [loading]="colorLoading" [typeahead]="colorInput$" [(ngModel)]="selectedColors"
+        (change)="emitColorsSelected($event)" bindLabel="color">
+    </ng-select>
+</div>

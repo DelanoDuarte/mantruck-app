@@ -1,4 +1,5 @@
 import { Segment } from './Segment';
+import { Color } from './Color';
 
 export class Truck {
 
@@ -8,4 +9,5 @@ export class Truck {
     fuel: string;
     range: string;
     segments: Segment[];
+    colors: Color[];
 }

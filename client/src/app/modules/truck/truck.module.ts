@@ -13,7 +13,8 @@ import { TruckSearchFormComponent } from './components/truck-list/truck-search/t
 import { TruckSearchComponent } from './components/truck-list/truck-search/truck-search.component';
 import { TruckModalEditComponent } from './components/truck-modal-edit/truck-modal-edit.component';
 import { TruckRoutingModule } from './truck-routing.module';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { TruckCreateColorsComponent } from './components/truck-create/truck-create-colors/truck-create-colors.component';
 
 
 
@@ -27,13 +28,15 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     TruckModalEditComponent,
     TruckDeleteModalComponent,
     TruckSearchComponent,
-    TruckSearchFormComponent
+    TruckSearchFormComponent,
+    TruckCreateColorsComponent
   ],
   imports: [
     CommonModule,
     TruckRoutingModule,
     NgSelectModule,
     NgbPaginationModule,
+    NgbPopoverModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModule
