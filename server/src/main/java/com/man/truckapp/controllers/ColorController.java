@@ -9,7 +9,6 @@ import com.man.truckapp.domain.Color;
 import com.man.truckapp.repository.ColorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,7 @@ public class ColorController {
     @GetMapping
     public ResponseEntity<List<Color>> findAllColorsPaginatedByDescription(@RequestParam("color") String color) {
 
-        Optional<List<Color>> colors = Optional.of(colorRepository.findByColorContaining(color, PageRequest.of(0, 3)));
+        Optional<List<Color>> colors = Optional.of(colorRepository.findByColorContainingIgnoreCase(color));
 
         if (colors.isPresent()) {
             if (colors.get().size() > 0)

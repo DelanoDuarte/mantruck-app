@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.man.truckapp.domain.FuelType;
 import com.man.truckapp.domain.RangeType;
+import com.man.truckapp.domain.Segment;
 import com.man.truckapp.domain.Truck;
 import com.man.truckapp.repository.TruckRepository;
 import com.man.truckapp.service.TruckService;
@@ -107,8 +108,11 @@ public class TruckController {
     public ResponseEntity<Page<Truck>> findAllFilteredWithPageable(@RequestBody(required = false) Truck truck,
             @RequestParam("page") int page, @RequestParam("size") int size) {
 
-        ExampleMatcher customExampleMatcher = ExampleMatcher.matching().withIgnoreCase().withIgnoreNullValues()
-                .withMatcher("model", match -> match.contains().ignoreCase());
+        final ExampleMatcher customExampleMatcher = ExampleMatcher.matchingAny()
+                .withIgnoreCase()
+                .withIgnoreNullValues()
+                .withMatcher("model", match -> match.contains().ignoreCase())
+                .withMatcher("segments", match -> match.transform(source -> Optional.of(((List<Segment>) source.get()).iterator().next())).ignoreCase());
 
         Optional<Page<Truck>> trucksFiltered = Optional
                 .of(truckRepository.findAll(Example.of(truck, customExampleMatcher), PageRequest.of(page, size)));

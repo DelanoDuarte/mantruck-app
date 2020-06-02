@@ -9,7 +9,6 @@ import com.man.truckapp.domain.Segment;
 import com.man.truckapp.repository.SegmentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +32,7 @@ public class SegmentController {
             @RequestParam("description") String description) {
 
         Optional<List<Segment>> segments = Optional
-                .of(segmentRepository.findByDescriptionContaining(description, PageRequest.of(0, 3)));
+                .of(segmentRepository.findByDescriptionContainingIgnoreCase(description));
 
         if (segments.isPresent()) {
             if (segments.get().size() > 0)
