@@ -1,6 +1,9 @@
 # Truck App
 ### Project with the objective to maintain truck data.
 
+### Project Documentation
+[Documentation](docs/Project.md)
+
 ## Demo
 ![alt](demo/man-truck-app_2.gif)
 
@@ -11,6 +14,7 @@
   
 ### Client
 - Angular - 9.0.2
+- Boostrap - 4.5.0
   
 ### Database
 - H2
